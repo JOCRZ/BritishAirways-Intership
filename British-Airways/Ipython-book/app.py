@@ -17,8 +17,11 @@ if nav == 'Aim':
 
     
 
-def predict_churn(x1,x2,x3,x4,x5,x6):
-    input=np.array([[x1,x2,x3,x4,x5,x6]]).astype(np.float64)
+def Predict_buy(x1,x2,x3,x4,x5,x16,x17,x18):
+    x6 = int(x16)
+    x7 = int(x17)
+    x8 = int(x18)
+    input=np.array([[x1,x2,x3,x4,x5,x6,x7,x8]]).astype(np.float64)
     prediction=model.predict(input)
     pred=prediction[0]
     return pred
@@ -26,54 +29,60 @@ def predict_churn(x1,x2,x3,x4,x5,x6):
 
 if nav == 'Prediction':
     
-    st.header('Probability to leave the Job')
+    st.header('Will Customer Buy the Ticket?')
     
-    val1 = st.slider('Satisfaction Level',0.0, 1.0,0.64)
-    val2 = st.text_input("Hours worked")
-    ques = st.radio(
+    val1 = st.text_input('Purchase lead')
+    val2 = st.text_input('Flight Hour')
+    val3 = st.text_input('Length of Stay')
+    val4 = st.text_input('Flight Duration')
+    val5 = st.text_input('Flgith Day')
+    ques1 = st.radio(
 
-    "Did you got Promoted last year",
+    "Does Customer wants Meals on Flight",
 
     ('No','Yes'))
 
-    if ques == 'Yes':
-        val3 = 1
+    if ques1 == 'Yes':
+        val6 = True
 
-    if ques == 'No':
-        val3 = 0
+    if ques1 == 'No':
+        val6 = False
+
+    ques2 = st.radio(
+
+    "Does Customer have Extra Baggage",
+
+    ('No','Yes'))
+
+    if ques2 == 'Yes':
+        val7 = True
+
+    if ques2 == 'No':
+        val7 = False
+
+    ques3 = st.radio(
+
+    "Does Customer have Seat Prefference",
+
+    ('No','Yes'))
+
+    if ques3 == 'Yes':
+        val8 = True
+
+    if ques3 == 'No':
+        val8 = False
 
 
-
-    choice = st.selectbox(
-
-    'Select your salary category',
-
-    ('Low','Medium','High'))
-        
     
-    if choice == 'Low':
-        high = 0
-        low = 1
-        medium = 0
-    
-    if choice == 'Medium':
-        high = 0
-        low = 0
-        medium = 1 
-
-    if choice == 'High':
-        high = 1
-        low = 0
-        medium = 0
 
 
 
 
 
     if st.button("Predict"):
-        value = predict_churn(val1,val2,val3,high,low,medium)
-        if value == 0:
-            st.success('Not Leaving the Firm')
-        if value == 1:
-            st.success('Leaving the Firm')
+        value = Predict_buy(val1,val2,val3,val4,val5,val6,val7,val8)
+        if value == False:
+            st.success('Not Buying the Ticket')
+        if value == True:
+            st.success('Buy the Ticket')
     
