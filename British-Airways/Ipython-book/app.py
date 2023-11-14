@@ -6,9 +6,8 @@ import pickle
 
 
 model=pickle.load(open('model.pkl','rb'))
-data = pd.read_csv('data//HR_comma_sep.csv').head(5)
-st.title("Employee Churn Prediction")
-st.image("data//churn.png", width=500)
+st.title("Ticket Booking Prediction")
+st.image("modelbanner.png")
 
 
 nav = st.sidebar.radio("Navigation",["Aim","Prediction"])      
@@ -16,8 +15,7 @@ nav = st.sidebar.radio("Navigation",["Aim","Prediction"])
 if nav == 'Aim':
     st.markdown(""" #### Aim of the Project """)
 
-    if st.checkbox("Show Table"):
-        st.table(data)
+    
 
 def predict_churn(x1,x2,x3,x4,x5,x6):
     input=np.array([[x1,x2,x3,x4,x5,x6]]).astype(np.float64)
